@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/zwang39-1936420/google-share-enhancer/static/css/main.e6c13ad2.css",
+    "main.js": "/zwang39-1936420/google-share-enhancer/static/js/main.f0740a0b.js",
+    "static/js/453.fe02e5e7.chunk.js": "/zwang39-1936420/google-share-enhancer/static/js/453.fe02e5e7.chunk.js",
+    "index.html": "/zwang39-1936420/google-share-enhancer/index.html",
+    "main.e6c13ad2.css.map": "/zwang39-1936420/google-share-enhancer/static/css/main.e6c13ad2.css.map",
+    "main.f0740a0b.js.map": "/zwang39-1936420/google-share-enhancer/static/js/main.f0740a0b.js.map",
+    "453.fe02e5e7.chunk.js.map": "/zwang39-1936420/google-share-enhancer/static/js/453.fe02e5e7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.f0740a0b.js"
+  ]
+}
