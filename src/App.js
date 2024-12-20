@@ -23,8 +23,8 @@ function App() {
           Open Share Dialog
         </Button>
         <Box width="24px"></Box>
-        <Button variant="outlined" color="primary" onClick={() => window.open('https://www.eddieziyuewang.com/translatex', '_blank')}>
-          Go back to TransLateX
+        <Button variant="outlined" color="primary" onClick={() => window.open('https://www.eddieziyuewang.com/google-revamp', '_blank')}>
+          Go back to My Website
         </Button>
       </Box>
       <ShareDialog 
