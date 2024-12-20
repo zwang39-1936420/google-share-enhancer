@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Box, Typography, SvgIcon } from '@mui/material';
 import ShareDialog from './ShareDialog';
 
@@ -12,16 +12,21 @@ const GoogleDocsIcon = (props) => (
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(true);
 
-
   return (
     <Box className="App" display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
       <GoogleDocsIcon style={{ fontSize: 60, marginBottom: '20px' }} />
       <Typography variant="h4" gutterBottom>
         Google Docs Share Access Enhancement Demo
       </Typography>
-      <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(true)}>
-        Open Share Dialog
-      </Button>
+      <Box display="flex" justifyContent="center" width="100%" style={{ marginTop: '10px' }}>
+        <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(true)}>
+          Open Share Dialog
+        </Button>
+        <Box width="24px"></Box>
+        <Button variant="outlined" color="primary" onClick={() => window.open('https://www.eddieziyuewang.com/translatex', '_blank')}>
+          Go back to TransLateX
+        </Button>
+      </Box>
       <ShareDialog 
         open={isDialogOpen} 
         onClose={() => setIsDialogOpen(false)} 
