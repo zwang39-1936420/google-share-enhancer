@@ -21,6 +21,32 @@ import {
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EmailIcon from '@mui/icons-material/Email';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+  }
+`;
 
 const StyledSelect = styled(Select)({
   '& .MuiOutlinedInput-notchedOutline': {
@@ -47,9 +73,9 @@ const StyledDialogTitle = styled(DialogTitle)({
   padding: '24px 24px 0 24px',
 });
 
-const StyledDialogContent = styled(DialogContent)({
-  padding: '24px 24px 0 24px',
-});
+const StyledDialogContent = styled(DialogContent)(() => ({
+  padding: '0px',
+}));
 
 const StyledDialogActions = styled(DialogActions)({
   padding: '24px',
@@ -57,13 +83,13 @@ const StyledDialogActions = styled(DialogActions)({
 });
 
 const StyledListItem = styled(ListItem)({
-  paddingLeft: 0,
-  paddingRight: 0,
+  paddingLeft: "24px",
+  paddingRight: "24px",
 });
 
 const StyledTextField = styled(TextField)({
   '& .MuiInputLabel-root': {
-    transform: 'translate(14px, 14px) scale(1)',
+    transform: 'translate(14px, 17px) scale(1)',
   },
   '& .MuiInputLabel-shrink': {
     transform: 'translate(14px, -6px) scale(0.75)',
@@ -138,93 +164,96 @@ const ShareDialog = ({ open, onClose }) => {
   };
 
   return (
-    <StyledDialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <StyledDialogTitle>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Typography variant="h6">Share "Sample Document"</Typography>
-          <Box>
-            <IconButton size="small">
-              <HelpOutlineIcon />
-            </IconButton>
-            <IconButton size="small">
-              <SettingsIcon />
-            </IconButton>
+    <>
+      <GlobalStyle />
+      <StyledDialog open={open} onClose={() => {}} maxWidth="sm" fullWidth>
+        <StyledDialogTitle>
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Typography variant="h6">Share "Sample Document"</Typography>
+            <Box>
+              <IconButton size="small">
+                <HelpOutlineIcon />
+              </IconButton>
+              <IconButton size="small">
+                <SettingsIcon />
+              </IconButton>
+            </Box>
           </Box>
-        </Box>
-      </StyledDialogTitle>
-      <StyledDialogContent style={{ marginTop: '10px', display: 'flex', flexDirection: 'column' }}>
-        <Box mb={2} display="flex" alignItems="center" mt={2}>
-          <StyledTextField
-            fullWidth
-            label="Add people or groups"
-            value={newUserEmail}
-            onChange={(e) => setNewUserEmail(e.target.value)}
-            variant="outlined"
-          />
-          <Button onClick={handleAddUser} style={{ marginLeft: '10px', height: '56px' }}>Add</Button>
-        </Box>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="subtitle1">People with access:</Typography>
-          <Box>
-            <Button onClick={toggleCheckboxes} variant="outlined" size="small">
-              {showCheckboxes ? 'Hide Select' : 'Select'}
-            </Button>
-            <IconButton size="small">
-              <EmailIcon />
-            </IconButton>
+        </StyledDialogTitle>
+        <StyledDialogContent style={{ marginTop: '10px', display: 'flex', flexDirection: 'column' }}>
+          <Box style={{ paddingLeft: '24px', paddingRight: '24px' }} mb={2} display="flex" alignItems="center" mt={2}>
+            <StyledTextField
+              fullWidth
+              label="Add people or groups"
+              value={newUserEmail}
+              onChange={(e) => setNewUserEmail(e.target.value)}
+              variant="outlined"
+            />
+            <Button onClick={handleAddUser} style={{ marginLeft: '10px', height: '56px' }}>Add</Button>
           </Box>
-        </Box>
-        <ScrollableList>
-          {users.map(user => (
-            <StyledListItem key={user.id} button onClick={() => handleToggleUser(user.id)} disabled={user.isOwner}>
-              {showCheckboxes && <Checkbox checked={selectedUsers.includes(user.id)} disabled={user.isOwner} />}
-              <Avatar sx={{ marginRight: 2 }}>{user.name[0]}</Avatar>
-              <ListItemText 
-                primary={user.name} 
-                secondary={user.email}
-                primaryTypographyProps={{ style: { fontWeight: user.isOwner ? 'bold' : 'normal' } }}
-              />
-              {user.isOwner ? (
-                <Typography variant="body2" color="textSecondary" style={{ marginLeft: 'auto' }}>
-                  Owner
-                </Typography>
-              ) : (
-                <StyledSelect
-                  value={user.access}
-                  onChange={(e) => handleChangeAccess(user.id, e.target.value)}
-                  onClick={(e) => e.stopPropagation()}
-                  disabled={user.isOwner}
-                >
-                  <MenuItem value="Viewer">Viewer</MenuItem>
-                  <MenuItem value="Commentor">Commentor</MenuItem>
-                  <MenuItem value="Editor">Editor</MenuItem>
-                </StyledSelect>
-              )}
-            </StyledListItem>
-          ))}
-        </ScrollableList>
-        {showCheckboxes && (
-          <Box mt={2}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={handleRemoveSelectedUsers}
-              disabled={selectedUsers.length === 0}
-            >
-              Remove Selected Users
-            </Button>
+          <Box style={{ paddingLeft: '24px', paddingRight: '24px' }}display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+            <Typography variant="subtitle1">People with access:</Typography>
+            <Box>
+              <Button onClick={toggleCheckboxes} variant="outlined" size="small">
+                {showCheckboxes ? 'Hide Select' : 'Select'}
+              </Button>
+              <IconButton size="small">
+                <EmailIcon />
+              </IconButton>
+            </Box>
           </Box>
-        )}
-      </StyledDialogContent>
-      <StyledDialogActions>
-        <Button variant="outlined" color="primary">
-          Copy Link
-        </Button>
-        <Button variant="contained" color="primary" onClick={onClose}>
-          Done
-        </Button>
-      </StyledDialogActions>
-    </StyledDialog>
+          <ScrollableList>
+            {users.map(user => (
+              <StyledListItem key={user.id} button onClick={() => handleToggleUser(user.id)} disabled={user.isOwner}>
+                {showCheckboxes && <Checkbox checked={selectedUsers.includes(user.id)} disabled={user.isOwner} />}
+                <Avatar sx={{ marginRight: 2 }}>{user.name[0]}</Avatar>
+                <ListItemText 
+                  primary={user.name} 
+                  secondary={user.email}
+                  primaryTypographyProps={{ style: { fontWeight: user.isOwner ? 'bold' : 'normal' } }}
+                />
+                {user.isOwner ? (
+                  <Typography variant="body2" color="textSecondary" style={{ marginLeft: 'auto' }}>
+                    Owner
+                  </Typography>
+                ) : (
+                  <StyledSelect
+                    value={user.access}
+                    onChange={(e) => handleChangeAccess(user.id, e.target.value)}
+                    onClick={(e) => e.stopPropagation()}
+                    disabled={user.isOwner}
+                  >
+                    <MenuItem value="Viewer">Viewer</MenuItem>
+                    <MenuItem value="Commentor">Commentor</MenuItem>
+                    <MenuItem value="Editor">Editor</MenuItem>
+                  </StyledSelect>
+                )}
+              </StyledListItem>
+            ))}
+          </ScrollableList>
+          {showCheckboxes && (
+            <Box mt={2}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={handleRemoveSelectedUsers}
+                disabled={selectedUsers.length === 0}
+              >
+                Remove Selected Users
+              </Button>
+            </Box>
+          )}
+        </StyledDialogContent>
+        <StyledDialogActions>
+          <Button variant="outlined" color="primary">
+            Copy Link
+          </Button>
+          <Button variant="contained" color="primary" onClick={onClose}>
+            Done
+          </Button>
+        </StyledDialogActions>
+      </StyledDialog>
+    </>
   );
 };
 

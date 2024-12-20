@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Box, Typography, SvgIcon } from '@mui/material';
 import ShareDialog from './ShareDialog';
 
@@ -10,7 +10,8 @@ const GoogleDocsIcon = (props) => (
 );
 
 function App() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(true);
+
 
   return (
     <Box className="App" display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
